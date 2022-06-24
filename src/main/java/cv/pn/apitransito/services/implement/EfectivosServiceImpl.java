@@ -1,6 +1,7 @@
 package cv.pn.apitransito.services.implement;
 
 
+import cv.pn.apitransito.dtos.DocumentsResponseDTO;
 import cv.pn.apitransito.dtos.EfectivosResponseDTO;
 import cv.pn.apitransito.model.Agente;
 import cv.pn.apitransito.model.Documents;
@@ -63,6 +64,47 @@ public  class EfectivosServiceImpl implements EfectivosService {
         }
     }
 
+    @Override
+    public APIResponse listById(Long id) {
+
+        Optional<Agente> agentesOptional = efectivosRepository.findById(id);
+        ApiUtilies.checkResource(agentesOptional, MessageState.ID_NAO_EXISTE);
+        Agente agente = agentesOptional.get();
+
+
+        try {
+            List<EfectivosResponseDTO> agenteResponseDTO = agentesOptional.stream()
+                    .map(efectivoslist -> new EfectivosResponseDTO(
+                            efectivoslist.getId(),
+                            efectivoslist.getId_pn(),
+                            efectivoslist.getNome(),
+                            efectivoslist.getApelido(),
+                            efectivoslist.getData_nasc(),
+                            efectivoslist.getSexo(),
+                            efectivoslist.getFiliacao(),
+                            efectivoslist.getIdade(),
+                            efectivoslist.getCni(),
+                            efectivoslist.getNif(),
+                            efectivoslist.getFuncao(),
+                            efectivoslist.getMorada(),
+                            efectivoslist.getPosto(),
+                            efectivoslist.getContacto(),
+                            efectivoslist.getEmail(),
+                            efectivoslist.getCreation(),
+                            efectivoslist.getUpdate(),
+                            efectivoslist.getObs()
+                    ))
+                    .collect(Collectors.toList());
+
+            return APIResponse.builder().status(true).details(Arrays.asList(agenteResponseDTO.toArray())).statusText(MessageState.SUCESSO).build();
+
+        }catch (Exception e) {
+            List<Object> l = new ArrayList<>();
+            l.add(e.getMessage());
+            return APIResponse.builder().status(false).statusText(MessageState.ERRO_AO_REMOVER).details(l).build();
+        }
+    }
+
 
 
 
@@ -121,6 +163,45 @@ public  class EfectivosServiceImpl implements EfectivosService {
         }
     }
 
+    @Override
+    public APIResponse updateEfectId(Long id, EfectivosResponseDTO dto) {
+
+        Optional<Agente> efectOptional = efectivosRepository.findById(id);
+        ApiUtilies.checkResource(efectOptional, MessageState.ID_NAO_EXISTE);
+        Agente agent = efectOptional.get();
+
+        try {
+            agent.setId_pn(dto.getId_pn());
+            agent.setNome(dto.getNome());
+            agent.setApelido(dto.getApelido());
+            agent.setData_nasc(dto.getData_nasc());
+            agent.setSexo(dto.getSexo());
+            agent.setFiliacao(dto.getFiliacao());
+            agent.setIdade(dto.getIdade());
+            agent.setCni(dto.getCni());
+            agent.setNif(dto.getNif());
+            agent.setFuncao(dto.getFunção());
+            agent.setMorada(dto.getMorada());
+            agent.setPosto(dto.getPosto());
+            agent.setContacto(dto.getContacto());
+            agent.setEmail(dto.getEmail());
+            agent.setCreation(dto.getCreation());
+            agent.setUpdate(dto.getUpdate());
+            agent.setObs(dto.getObs());
+
+            efectivosRepository.save(agent);
+
+            return APIResponse.builder().status(true).statusText(MessageState.ATUALIZADO_COM_SUCESSO).build();
+
+        } catch (Exception e) {
+
+            List<Object> l = new ArrayList<>();
+            l.add(e.getMessage());
+
+            return APIResponse.builder().status(false).statusText(MessageState.ERRO_AO_ATUALIZAR).details(l).build();
+
+        }
+    }
 /*
     @Override
     public APIResponse findTipodoc(String tipodoc) {
