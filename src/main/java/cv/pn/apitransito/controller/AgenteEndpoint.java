@@ -28,6 +28,15 @@ public class AgenteEndpoint {
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 
+    @GetMapping(path = "/listefect/id/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<Object> listById(@PathVariable("id") Long id) {
+
+        APIResponse response = efectivosService.listById(id);
+        return new ResponseEntity<Object>(response, HttpStatus.ACCEPTED);
+
+    }
+
     @PostMapping(path = "/listefect")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Object> insertEfectivos(@Valid @RequestBody EfectivosResponseDTO efectivosResponseDTO) {
@@ -44,5 +53,13 @@ public class AgenteEndpoint {
         return new ResponseEntity<Object>(response, HttpStatus.ACCEPTED);
 
     }
+
+    @PutMapping(path = "/listefect/{id}")
+    public  ResponseEntity<Object> updateDocId(@PathVariable("id") Long id, @Valid @RequestBody EfectivosResponseDTO dto)  {
+
+        APIResponse response = efectivosService.updateEfectId(id, dto);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 
 }
