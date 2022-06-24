@@ -3,26 +3,29 @@ package cv.pn.apitransito.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 
-public class DocumentsResponseDTO {
+public class EfectivosResponseDTO {
 
-    private Long  iddoc;
-    private String matricula;
-    private String n_carta;
-    private String condutor;
-    private String proprietario;
-    private String motivo;
-    private String destino;
-    private String n_oficio;
-    private String data_apreensao;
-    private String data_entrega;
-    private String tipodoc;
-    private String cap;
-    private String V_apreendido;
+    private Long  idagente;
+    private Number id_pn;
+    private String nome;
+    private String apelido;
+    private String data_nasc;
+    private String sexo;
+    private String filiacao;
+    private String idade;
+    private String cni;
+    private Number nif;
+    private String função;
+    private String morada;
+    private String posto;
+    private String contacto;
+    private String email;
+    private String creation;
+    private String update;
     private String obs;
 
 

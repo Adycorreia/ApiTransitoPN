@@ -6,7 +6,7 @@ import lombok.Data;
 public class  Constants {
 
 	public enum TipoDoc {
-		Carta, Titulo_Livrete
+		CARTA, LIVRETE
 
 
 	}

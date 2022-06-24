@@ -1,9 +1,9 @@
 package cv.pn.apitransito.controller;
 
-import cv.pn.apitransito.dtos.DocumentsResponseDTO;
 import cv.pn.apitransito.dtos.EfectivosResponseDTO;
-import cv.pn.apitransito.services.DocumentsService;
+import cv.pn.apitransito.dtos.InfracaoResponseDTO;
 import cv.pn.apitransito.services.EfectivosService;
+import cv.pn.apitransito.services.InfracaoService;
 import cv.pn.apitransito.utilities.APIResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,24 +15,24 @@ import javax.validation.Valid;
 @CrossOrigin
 @RestController
 @RequestMapping("api/")
-public class AgenteEndpoint {
+public class InfracaoEndpoint {
 
 
     @Autowired
-    EfectivosService efectivosService;
+    InfracaoService infracaoService;
 
-    @GetMapping(path = "/listefect")
-    public ResponseEntity<Object> ListEfectivos(){
+    @GetMapping(path = "/listInfrac")
+    public ResponseEntity<Object> ListInfração(){
 
-        APIResponse response = efectivosService.efectivosAll();
+        APIResponse response = infracaoService.infracaoAll();
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 
-    @PostMapping(path = "/listefect")
+    @PostMapping(path = "/listInfrac")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Object> insertEfectivos(@Valid @RequestBody EfectivosResponseDTO efectivosResponseDTO) {
+    public ResponseEntity<Object> insertInfracao(@Valid @RequestBody InfracaoResponseDTO infracaoResponseDTO) {
 
-        APIResponse response = efectivosService.insertEfectivos(efectivosResponseDTO);
+        APIResponse response = infracaoService.insertInfracao(infracaoResponseDTO);
         return new ResponseEntity<Object>(response, HttpStatus.CREATED);
     }
 

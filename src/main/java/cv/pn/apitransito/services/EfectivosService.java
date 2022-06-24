@@ -2,15 +2,13 @@ package cv.pn.apitransito.services;
 
 
 import cv.pn.apitransito.dtos.DocumentsResponseDTO;
-import cv.pn.apitransito.model.Documents;
+import cv.pn.apitransito.dtos.EfectivosResponseDTO;
 import cv.pn.apitransito.utilities.APIResponse;
 
-import java.util.List;
+public interface EfectivosService {
 
-public interface DocumentsService {
-
-    APIResponse documentsAll();
-    APIResponse insertDocuments(DocumentsResponseDTO documentsResponseDTO);
-    APIResponse findTipodoc(String tipodoc);
+    APIResponse efectivosAll();
+    APIResponse insertEfectivos(EfectivosResponseDTO efectivosResponseDTO);
+    APIResponse deleteefect(Long id);
 
 }

@@ -1,54 +1,60 @@
 package cv.pn.apitransito.services.implement;
 
 
-import cv.pn.apitransito.dtos.DocumentsResponseDTO;
+import cv.pn.apitransito.dtos.EfectivosResponseDTO;
+import cv.pn.apitransito.model.Agente;
 import cv.pn.apitransito.model.Documents;
-import cv.pn.apitransito.repository.DocumentsRepository;
-import cv.pn.apitransito.services.DocumentsService;
+import cv.pn.apitransito.repository.EfectivosRepository;
+import cv.pn.apitransito.services.EfectivosService;
 import cv.pn.apitransito.utilities.APIResponse;
 import cv.pn.apitransito.utilities.ApiUtilies;
-import cv.pn.apitransito.utilities.Constants;
 import cv.pn.apitransito.utilities.MessageState;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
 @Service
-public  class DocumentsServiceImpl implements DocumentsService {
+public  class EfectivosServiceImpl implements EfectivosService {
 
     @Autowired
-    DocumentsRepository documentsRepository;
+    EfectivosRepository efectivosRepository;
 
     @Override
-    public APIResponse documentsAll() {
+    public APIResponse efectivosAll() {
 
 
-        List<Documents> listdoc = documentsRepository.findAll();
+        List<Agente> listagent = efectivosRepository.findAll();
         try {
 
-            List<DocumentsResponseDTO> documentsResponseDTOS = listdoc.stream()
-                    .map(document -> new DocumentsResponseDTO(
-                            document.getId(),
-                            document.getMatricula(),
-                            document.getN_carta(),
-                            document.getCondutor(),
-                            document.getProprietario(),
-                            document.getMotivo(),
-                            document.getDestino(),
-                            document.getN_oficio(),
-                            document.getData_apreensao(),
-                            document.getData_entrega(),
-                            document.getCap(),
-                            document.getTipodoc(),
-                            document.getV_apreendido(),
-                            document.getObs()))
+            List<EfectivosResponseDTO> efectivosResponseDTOS = listagent.stream()
+                    .map(agente -> new EfectivosResponseDTO(
+                            agente.getId(),
+                            agente.getId_pn(),
+                            agente.getNome(),
+                            agente.getApelido(),
+                            agente.getData_nasc(),
+                            agente.getSexo(),
+                            agente.getFiliacao(),
+                            agente.getIdade(),
+                            agente.getCni(),
+                            agente.getNif(),
+                            agente.getFuncao(),
+                            agente.getMorada(),
+                            agente.getPosto(),
+                            agente.getContacto(),
+                            agente.getEmail(),
+                            agente.getCreation(),
+                            agente.getUpdate(),
+                            agente.getObs()))
                     .collect(Collectors.toList());
 
-            return APIResponse.builder().status(true).details(Arrays.asList(documentsResponseDTOS.toArray())).statusText(MessageState.SUCESSO).build();
+            return APIResponse.builder().status(true).details(Arrays.asList(efectivosResponseDTOS.toArray())).statusText(MessageState.SUCESSO).build();
 
         } catch (Exception e) {
             List<Object> l = new ArrayList<>();
@@ -61,27 +67,31 @@ public  class DocumentsServiceImpl implements DocumentsService {
 
 
     @Override
-    public APIResponse insertDocuments(DocumentsResponseDTO documentsResponseDTO) {
+    public APIResponse insertEfectivos(EfectivosResponseDTO efectivosResponseDTO) {
 
-        Documents documents = new Documents();
+        Agente agente = new Agente();
 
         try {
-            documents.setId(documentsResponseDTO.getIddoc());
-            documents.setMatricula(documentsResponseDTO.getMatricula());
-            documents.setN_carta(documentsResponseDTO.getN_carta());
-            documents.setCondutor(documentsResponseDTO.getCondutor());
-            documents.setProprietario(documentsResponseDTO.getProprietario());
-            documents.setMotivo(documentsResponseDTO.getMotivo());
-            documents.setDestino(documentsResponseDTO.getDestino());
-            documents.setN_oficio(documentsResponseDTO.getN_oficio());
-            documents.setData_apreensao(documentsResponseDTO.getData_apreensao());
-            documents.setData_entrega(documentsResponseDTO.getData_entrega());
-            documents.setV_apreendido(documentsResponseDTO.getV_apreendido());
-            documents.setTipodoc(documentsResponseDTO.getTipodoc());
-            documents.setObs(documentsResponseDTO.getObs());
-            documents.setCap(documentsResponseDTO.getCap());
+            agente.setId(efectivosResponseDTO.getIdagente());
+            agente.setId_pn(efectivosResponseDTO.getId_pn());
+            agente.setNome(efectivosResponseDTO.getNome());
+            agente.setApelido(efectivosResponseDTO.getApelido());
+            agente.setData_nasc(efectivosResponseDTO.getData_nasc());
+            agente.setSexo(efectivosResponseDTO.getSexo());
+            agente.setFiliacao(efectivosResponseDTO.getFiliacao());
+            agente.setIdade(efectivosResponseDTO.getIdade());
+            agente.setCni(efectivosResponseDTO.getCni());
+            agente.setNif(efectivosResponseDTO.getNif());
+            agente.setFuncao(efectivosResponseDTO.getFunção());
+            agente.setMorada(efectivosResponseDTO.getMorada());
+            agente.setPosto(efectivosResponseDTO.getPosto());
+            agente.setContacto(efectivosResponseDTO.getContacto());
+            agente.setEmail(efectivosResponseDTO.getEmail());
+            agente.setCreation(efectivosResponseDTO.getCreation());
+            agente.setUpdate(efectivosResponseDTO.getUpdate());
+            agente.setObs(efectivosResponseDTO.getObs());
 
-            documentsRepository.save(documents);
+            efectivosRepository.save(agente);
 
             return APIResponse.builder().status(true).statusText(MessageState.INSERIDO_COM_SUCESSO).build();
 
@@ -93,6 +103,25 @@ public  class DocumentsServiceImpl implements DocumentsService {
 
     }
 
+    @Override
+    public APIResponse deleteefect(Long id) {
+
+        Optional<Agente> efectivosOptional = efectivosRepository.findById(id);
+        ApiUtilies.checkResource(efectivosOptional, MessageState.ID_NAO_EXISTE);
+        Agente agente = efectivosOptional.get();
+
+        try {
+            efectivosRepository.delete(agente);
+            return APIResponse.builder().status(true).statusText(MessageState.REMOVIDO_COM_SUCESSO).build();
+
+        }catch (Exception e) {
+            List<Object> l = new ArrayList<>();
+            l.add(e.getMessage());
+            return APIResponse.builder().status(false).statusText(MessageState.ERRO_AO_REMOVER).details(l).build();
+        }
+    }
+
+/*
     @Override
     public APIResponse findTipodoc(String tipodoc) {
 
@@ -132,7 +161,7 @@ public  class DocumentsServiceImpl implements DocumentsService {
 
     }
 
-
+*/
 
 
 }

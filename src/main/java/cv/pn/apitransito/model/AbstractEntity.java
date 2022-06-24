@@ -1,10 +1,11 @@
-package br.com.devdojo.model;
+package cv.pn.apitransito.model;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @author William Suane for DevDojo on 6/9/17.
@@ -22,7 +23,7 @@ public class AbstractEntity implements Serializable {
 
         AbstractEntity that = (AbstractEntity) o;
 
-        return id != null ? id.equals(that.id) : that.id == null;
+        return Objects.equals(id, that.id);
     }
 
     @Override

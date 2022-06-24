@@ -1,24 +1,18 @@
-package cv.pn.def.services;
+package cv.pn.apitransito.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import cv.pn.def.dtos.PhaseExecDTO;
-import cv.pn.def.dtos.FinalJsonDTO;
-import cv.pn.def.dtos.sniac.ShippingRequestSniacDTO;
-import cv.pn.def.utilities.APIResponse;
-import cv.pn.def.utilities.Constants;
 
-public interface PhaseExecService {
+import cv.pn.apitransito.dtos.DocumentsResponseDTO;
+import cv.pn.apitransito.model.Documents;
+import cv.pn.apitransito.utilities.APIResponse;
 
-    APIResponse processPhaseExecall(String id);
-    APIResponse jsonInputPhaseExec(String id);
-    APIResponse refusalProcess(FinalJsonDTO dto);
-    APIResponse validateProcess(FinalJsonDTO dto);
-    APIResponse updatePhaseExec(PhaseExecDTO dto, String id);
-    APIResponse insertPhaseExec(PhaseExecDTO dto);
-    APIResponse listProcessSendSniac();
-    APIResponse detailsCard(String idPhaseExec);
-    String xmlDataSniac(String incm);
-    APIResponse shippingDataSniac(ShippingRequestSniacDTO dto) throws JsonProcessingException;
-    APIResponse updateJson(String id, String idPedido, FinalJsonDTO dto);
-    APIResponse validatePreAnalise(String idPhaseExec, FinalJsonDTO dto) throws JsonProcessingException;
+import java.util.List;
+
+public interface DocumentsService {
+
+    APIResponse documentsAll();
+    APIResponse insertDocuments(DocumentsResponseDTO documentsResponseDTO);
+    APIResponse findTripod(String tipodoc);
+    APIResponse deletedoc(Long id);
+    APIResponse listById(Long Id);
+    APIResponse updateDocId(Long id, DocumentsResponseDTO dto);
 }

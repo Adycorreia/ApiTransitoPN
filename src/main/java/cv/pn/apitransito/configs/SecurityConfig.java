@@ -1,4 +1,4 @@
-package cv.pn.def.configs;
+package cv.pn.apitransito.configs;
 
 
 /*import org.springframework.beans.factory.annotation.Autowired;

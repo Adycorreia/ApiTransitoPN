@@ -1,13 +1,12 @@
 package cv.pn.apitransito.services;
 
 
-import cv.pn.apitransito.dtos.DocumentsResponseDTO;
-import cv.pn.apitransito.dtos.EfectivosResponseDTO;
+import cv.pn.apitransito.dtos.InfracaoResponseDTO;
 import cv.pn.apitransito.utilities.APIResponse;
 
-public interface EfectivosService {
+public interface InfracaoService {
 
-    APIResponse efectivosAll();
-    APIResponse insertEfectivos(EfectivosResponseDTO efectivosResponseDTO);
+    APIResponse infracaoAll();
+    APIResponse insertInfracao(InfracaoResponseDTO infracaoResponseDTO);
 
 }
