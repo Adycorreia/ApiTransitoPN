@@ -36,23 +36,47 @@ public  class EfectivosServiceImpl implements EfectivosService {
             List<EfectivosResponseDTO> efectivosResponseDTOS = listagent.stream()
                     .map(agente -> new EfectivosResponseDTO(
                             agente.getId(),
+
                             agente.getId_pn(),
+
                             agente.getNome(),
+
                             agente.getApelido(),
+
                             agente.getData_nasc(),
+
                             agente.getSexo(),
+
                             agente.getFiliacao(),
+
                             agente.getIdade(),
+
                             agente.getCni(),
+
                             agente.getNif(),
+
                             agente.getFuncao(),
+
                             agente.getMorada(),
+
                             agente.getPosto(),
+
                             agente.getContacto(),
+
                             agente.getEmail(),
+
                             agente.getCreation(),
+
                             agente.getUpdate(),
-                            agente.getObs()))
+
+                            agente.getObs(),
+
+                            agente.getFotografia(),
+
+                            agente.getAssinatura()
+
+
+                    ))
                     .collect(Collectors.toList());
 
             return APIResponse.builder().status(true).details(Arrays.asList(efectivosResponseDTOS.toArray())).statusText(MessageState.SUCESSO).build();
@@ -76,23 +100,44 @@ public  class EfectivosServiceImpl implements EfectivosService {
             List<EfectivosResponseDTO> agenteResponseDTO = agentesOptional.stream()
                     .map(efectivoslist -> new EfectivosResponseDTO(
                             efectivoslist.getId(),
+
                             efectivoslist.getId_pn(),
+
                             efectivoslist.getNome(),
+
                             efectivoslist.getApelido(),
+
                             efectivoslist.getData_nasc(),
+
                             efectivoslist.getSexo(),
+
                             efectivoslist.getFiliacao(),
+
                             efectivoslist.getIdade(),
+
                             efectivoslist.getCni(),
+
                             efectivoslist.getNif(),
+
                             efectivoslist.getFuncao(),
+
                             efectivoslist.getMorada(),
+
                             efectivoslist.getPosto(),
+
                             efectivoslist.getContacto(),
+
                             efectivoslist.getEmail(),
+
                             efectivoslist.getCreation(),
+
                             efectivoslist.getUpdate(),
-                            efectivoslist.getObs()
+
+                            efectivoslist.getObs(),
+
+                            efectivoslist.getFotografia(),
+
+                            efectivoslist.getAssinatura()
                     ))
                     .collect(Collectors.toList());
 
@@ -111,27 +156,49 @@ public  class EfectivosServiceImpl implements EfectivosService {
     @Override
     public APIResponse insertEfectivos(EfectivosResponseDTO efectivosResponseDTO) {
 
+
         Agente agente = new Agente();
 
         try {
             agente.setId(efectivosResponseDTO.getIdagente());
+
             agente.setId_pn(efectivosResponseDTO.getId_pn());
+
             agente.setNome(efectivosResponseDTO.getNome());
+
             agente.setApelido(efectivosResponseDTO.getApelido());
+
             agente.setData_nasc(efectivosResponseDTO.getData_nasc());
+
             agente.setSexo(efectivosResponseDTO.getSexo());
+
             agente.setFiliacao(efectivosResponseDTO.getFiliacao());
+
             agente.setIdade(efectivosResponseDTO.getIdade());
+
             agente.setCni(efectivosResponseDTO.getCni());
+
             agente.setNif(efectivosResponseDTO.getNif());
-            agente.setFuncao(efectivosResponseDTO.getFunção());
+
+            agente.setFuncao(efectivosResponseDTO.getFuncao());
+
             agente.setMorada(efectivosResponseDTO.getMorada());
+
             agente.setPosto(efectivosResponseDTO.getPosto());
+
             agente.setContacto(efectivosResponseDTO.getContacto());
+
             agente.setEmail(efectivosResponseDTO.getEmail());
+
             agente.setCreation(efectivosResponseDTO.getCreation());
+
             agente.setUpdate(efectivosResponseDTO.getUpdate());
+
             agente.setObs(efectivosResponseDTO.getObs());
+
+            agente.setFotografia(efectivosResponseDTO.getFotografia());
+
+            agente.setAssinatura(efectivosResponseDTO.getAssinatura());
 
             efectivosRepository.save(agente);
 
@@ -172,22 +239,43 @@ public  class EfectivosServiceImpl implements EfectivosService {
 
         try {
             agent.setId_pn(dto.getId_pn());
+
             agent.setNome(dto.getNome());
+
             agent.setApelido(dto.getApelido());
+
             agent.setData_nasc(dto.getData_nasc());
+
             agent.setSexo(dto.getSexo());
+
             agent.setFiliacao(dto.getFiliacao());
+
             agent.setIdade(dto.getIdade());
+
             agent.setCni(dto.getCni());
+
             agent.setNif(dto.getNif());
-            agent.setFuncao(dto.getFunção());
+
+            agent.setFuncao(dto.getFuncao());
+
             agent.setMorada(dto.getMorada());
+
             agent.setPosto(dto.getPosto());
+
             agent.setContacto(dto.getContacto());
+
             agent.setEmail(dto.getEmail());
+
             agent.setCreation(dto.getCreation());
+
             agent.setUpdate(dto.getUpdate());
+
             agent.setObs(dto.getObs());
+
+            agent.setFotografia(dto.getFotografia());
+
+            agent.setAssinatura(dto.getAssinatura());
+
 
             efectivosRepository.save(agent);
 
