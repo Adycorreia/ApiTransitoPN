@@ -73,8 +73,29 @@ public  class EfectivosServiceImpl implements EfectivosService {
 
                             agente.getFotografia(),
 
-                            agente.getAssinatura()
+                            agente.getAssinatura(),
 
+                            agente.getEstado_civil(),
+
+                            agente.getIlha_id(),
+
+                            agente.getConcelho_id(),
+
+                            agente.getFreguesia_id(),
+
+                            agente.getLocalidade_id(),
+
+                            agente.getZona_id(),
+
+                            agente.getNacionalidade_id(),
+
+                            agente.getCv_nacionalidade(),
+
+                            agente.getNivel_instrucao(),
+
+                            agente.getLocal_nascimento(),
+
+                            agente.getNaturalidade()
 
                     ))
                     .collect(Collectors.toList());
@@ -137,7 +158,31 @@ public  class EfectivosServiceImpl implements EfectivosService {
 
                             efectivoslist.getFotografia(),
 
-                            efectivoslist.getAssinatura()
+                            efectivoslist.getAssinatura(),
+
+                            efectivoslist.getEstado_civil(),
+
+                            efectivoslist.getIlha_id(),
+
+                            efectivoslist.getConcelho_id(),
+
+                            efectivoslist.getFreguesia_id(),
+
+                            efectivoslist.getLocalidade_id(),
+
+                            efectivoslist.getZona_id(),
+
+                            efectivoslist.getNacionalidade_id(),
+
+                            efectivoslist.getCv_nacionalidade(),
+
+                            efectivoslist.getNivel_instrucao(),
+
+                            efectivoslist.getLocal_nascimento(),
+
+                            efectivoslist.getNaturalidade()
+
+
                     ))
                     .collect(Collectors.toList());
 
@@ -199,6 +244,27 @@ public  class EfectivosServiceImpl implements EfectivosService {
             agente.setFotografia(efectivosResponseDTO.getFotografia());
 
             agente.setAssinatura(efectivosResponseDTO.getAssinatura());
+
+            agente.setEstado_civil(efectivosResponseDTO.getEstado_civil());
+
+            agente.setIlha_id(efectivosResponseDTO.getIlha_id());
+
+            agente.setConcelho_id(efectivosResponseDTO.getConcelho_id());
+
+            agente.setFreguesia_id(efectivosResponseDTO.getFreguesia_id());
+
+            agente.setLocalidade_id(efectivosResponseDTO.getLocalidade_id());
+
+            agente.setZona_id(efectivosResponseDTO.getZona_id());
+
+            agente.setNacionalidade_id(efectivosResponseDTO.getNacionalidade_id());
+
+            agente.setCv_nacionalidade(efectivosResponseDTO.getCv_nacionalidade());
+
+            agente.setNivel_instrucao(efectivosResponseDTO.getNivel_instrucao());
+
+            agente.setNaturalidade(efectivosResponseDTO.getNaturalidade());
+
 
             efectivosRepository.save(agente);
 
