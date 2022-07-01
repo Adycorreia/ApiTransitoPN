@@ -31,7 +31,7 @@ public class  Constants {
 
 	public enum Sexo {
 
-		M, F, X
+		Masculino, Feminino, Indeterminado
 
     }
 

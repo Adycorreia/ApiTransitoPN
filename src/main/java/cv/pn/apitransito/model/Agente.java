@@ -2,8 +2,12 @@ package cv.pn.apitransito.model;
 
 import cv.pn.apitransito.utilities.Constants;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Data
@@ -15,13 +19,13 @@ public class Agente extends AbstractEntity{
 
     private String apelido;
 
-    private String data_nasc;
+    private LocalDate data_nasc;
 
     private Constants.Sexo sexo;
 
     private String filiacao;
 
-    private String idade;
+    private int idade;
 
     private String cni;
 
@@ -37,7 +41,9 @@ public class Agente extends AbstractEntity{
 
     private String email;
 
-    private String creation;
+    @Column(name = "creation", nullable = true, columnDefinition = "TIMESTAMP DEFAULT now()")
+    @CreationTimestamp
+    private LocalDateTime creation;
 
     private String update;
 

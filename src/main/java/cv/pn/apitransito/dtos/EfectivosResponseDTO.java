@@ -10,6 +10,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -24,13 +27,13 @@ public class EfectivosResponseDTO {
 
     private String apelido;
 
-    private String data_nasc;
+    private LocalDate data_nasc;
 
     private Constants.Sexo sexo;
 
     private String filiacao;
 
-    private String idade;
+    private int idade;
 
     private String cni;
 
@@ -46,7 +49,7 @@ public class EfectivosResponseDTO {
 
     private String email;
 
-    private String creation;
+    private LocalDateTime creation;
 
     private String update;
 

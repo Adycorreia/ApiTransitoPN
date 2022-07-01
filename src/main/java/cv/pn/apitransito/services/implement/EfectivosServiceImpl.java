@@ -1,10 +1,7 @@
 package cv.pn.apitransito.services.implement;
 
-
-import cv.pn.apitransito.dtos.DocumentsResponseDTO;
 import cv.pn.apitransito.dtos.EfectivosResponseDTO;
 import cv.pn.apitransito.model.Agente;
-import cv.pn.apitransito.model.Documents;
 import cv.pn.apitransito.repository.EfectivosRepository;
 import cv.pn.apitransito.services.EfectivosService;
 import cv.pn.apitransito.utilities.APIResponse;
@@ -13,10 +10,11 @@ import cv.pn.apitransito.utilities.MessageState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import javax.swing.*;
+import javax.xml.crypto.Data;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -201,8 +199,13 @@ public  class EfectivosServiceImpl implements EfectivosService {
     @Override
     public APIResponse insertEfectivos(EfectivosResponseDTO efectivosResponseDTO) {
 
-
         Agente agente = new Agente();
+
+        Calendar dataAtual = Calendar.getInstance();
+        LocalDate nascimento = efectivosResponseDTO.getData_nasc();
+        int ano1 = nascimento.getYear();
+        int ano2 = dataAtual.get(Calendar.YEAR);
+        int idade = ano2 - ano1;
 
         try {
             agente.setId(efectivosResponseDTO.getIdagente());
@@ -219,7 +222,7 @@ public  class EfectivosServiceImpl implements EfectivosService {
 
             agente.setFiliacao(efectivosResponseDTO.getFiliacao());
 
-            agente.setIdade(efectivosResponseDTO.getIdade());
+            agente.setIdade(idade);
 
             agente.setCni(efectivosResponseDTO.getCni());
 
