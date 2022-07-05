@@ -68,8 +68,6 @@ public  class ArmamentoServiceImpl implements ArmamentoService {
     @Override
     public APIResponse insertArmamentoAll(ArmamentoResponseDTO armamentoResponseDTO) {
 
-
-
         Armamento armamento = new Armamento();
 
         Optional<Agente> agenteOptional = efectivosRepository.findById(armamentoResponseDTO.getId_agente());
@@ -123,7 +121,7 @@ public  class ArmamentoServiceImpl implements ArmamentoService {
     public APIResponse listById(Long id) {
         Optional<Armamento> armamentoOptional = armamentoRepository.findById(id);
         ApiUtilies.checkResource(armamentoOptional, MessageState.ID_NAO_EXISTE);
-        Armamento Armamento = armamentoOptional.get();
+        Armamento armamento1 = armamentoOptional.get();
 /*
         Optional<Agente> agenteOptional = efectivosRepository.findById(Armamento.getId());
         ApiUtilies.checkResource(agenteOptional, "Efetivo: " + MessageState.ID_NAO_EXISTE);
