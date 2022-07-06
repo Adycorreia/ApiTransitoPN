@@ -10,9 +10,7 @@ import cv.pn.apitransito.utilities.MessageState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.*;
-import javax.xml.crypto.Data;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -32,69 +30,77 @@ public  class EfectivosServiceImpl implements EfectivosService {
         try {
 
             List<EfectivosResponseDTO> efectivosResponseDTOS = listagent.stream()
-                    .map(agente -> new EfectivosResponseDTO(
-                            agente.getId(),
+                    .map(efectivoslist -> new EfectivosResponseDTO(
+                            efectivoslist.getId(),
 
-                            agente.getId_pn(),
+                            efectivoslist.getId_pn(),
 
-                            agente.getNome(),
+                            efectivoslist.getNome(),
 
-                            agente.getApelido(),
+                            efectivoslist.getApelido(),
 
-                            agente.getData_nasc(),
+                            efectivoslist.getData_nasc(),
 
-                            agente.getSexo(),
+                            efectivoslist.getSexo(),
 
-                            agente.getFiliacao(),
+                            efectivoslist.getFiliacao(),
 
-                            agente.getIdade(),
+                            efectivoslist.getIdade(),
 
-                            agente.getCni(),
+                            efectivoslist.getCni(),
 
-                            agente.getNif(),
+                            efectivoslist.getNif(),
 
-                            agente.getFuncao(),
+                            efectivoslist.getFuncao(),
 
-                            agente.getMorada(),
+                            efectivoslist.getMorada(),
 
-                            agente.getPosto(),
+                            efectivoslist.getPosto(),
 
-                            agente.getContacto(),
+                            efectivoslist.getContacto(),
 
-                            agente.getEmail(),
+                            efectivoslist.getEmail(),
 
-                            agente.getCreation(),
+                            efectivoslist.getCreation(),
 
-                            agente.getUpdate(),
+                            efectivoslist.getUpdate(),
 
-                            agente.getObs(),
+                            efectivoslist.getObs(),
 
-                            agente.getFotografia(),
+                            efectivoslist.getFotografia(),
 
-                            agente.getAssinatura(),
+                            efectivoslist.getAssinatura(),
 
-                            agente.getEstado_civil(),
+                            efectivoslist.getEstado_civil(),
 
-                            agente.getIlha_id(),
+                            efectivoslist.getIlha_id(),
 
-                            agente.getConcelho_id(),
+                            efectivoslist.getConcelho_id(),
 
-                            agente.getFreguesia_id(),
+                            efectivoslist.getFreguesia_id(),
 
-                            agente.getLocalidade_id(),
+                            efectivoslist.getLocalidade_id(),
 
-                            agente.getZona_id(),
+                            efectivoslist.getZona_id(),
 
-                            agente.getNacionalidade_id(),
+                            efectivoslist.getNacionalidade_id(),
 
-                            agente.getCv_nacionalidade(),
+                            efectivoslist.getCv_nacionalidade(),
 
-                            agente.getNivel_instrucao(),
+                            efectivoslist.getNivel_instrucao(),
 
-                            agente.getLocal_nascimento(),
+                            efectivoslist.getLocal_nascimento(),
 
-                            agente.getNaturalidade()
+                            efectivoslist.getNaturalidade(),
 
+                            efectivoslist.getN_arma(),
+                            efectivoslist.getMarca(),
+                            efectivoslist.getModelo(),
+                            efectivoslist.getCalibre(),
+                            efectivoslist.getN_carregador(),
+                            efectivoslist.getN_municoes(),
+                            efectivoslist.getEstado_arma(),
+                            efectivoslist.getData_inspeArma()
                     ))
                     .collect(Collectors.toList());
 
@@ -178,8 +184,16 @@ public  class EfectivosServiceImpl implements EfectivosService {
 
                             efectivoslist.getLocal_nascimento(),
 
-                            efectivoslist.getNaturalidade()
+                            efectivoslist.getNaturalidade(),
 
+                            efectivoslist.getN_arma(),
+                            efectivoslist.getMarca(),
+                            efectivoslist.getModelo(),
+                            efectivoslist.getCalibre(),
+                            efectivoslist.getN_carregador(),
+                            efectivoslist.getN_municoes(),
+                            efectivoslist.getEstado_arma(),
+                            efectivoslist.getData_inspeArma()
 
                     ))
                     .collect(Collectors.toList());
@@ -344,6 +358,20 @@ public  class EfectivosServiceImpl implements EfectivosService {
             agent.setFotografia(dto.getFotografia());
 
             agent.setAssinatura(dto.getAssinatura());
+
+            agent.setN_arma(dto.getN_arma());
+
+            agent.setMarca(dto.getMarca());
+
+            agent.setCalibre(dto.getCalibre());
+
+            agent.setN_carregador(dto.getN_carregador());
+
+            agent.setN_municoes(dto.getN_municoes());
+
+            agent.setEstado_arma(dto.getEstado_arma());
+
+            agent.setData_inspeArma(dto.getData_inspeArma());
 
 
             efectivosRepository.save(agent);

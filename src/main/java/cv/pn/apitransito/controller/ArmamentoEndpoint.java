@@ -3,6 +3,7 @@ package cv.pn.apitransito.controller;
 import cv.pn.apitransito.dtos.ArmamentoResponseDTO;
 import cv.pn.apitransito.dtos.EfectivosResponseDTO;
 import cv.pn.apitransito.dtos.InfracaoResponseDTO;
+import cv.pn.apitransito.model.Agente;
 import cv.pn.apitransito.services.ArmamentoService;
 import cv.pn.apitransito.services.EfectivosService;
 import cv.pn.apitransito.services.InfracaoService;
@@ -34,6 +35,15 @@ public class ArmamentoEndpoint {
     public ResponseEntity<Object> listById(@PathVariable("id") Long id) {
 
         APIResponse response = armamentoService.listById(id);
+        return new ResponseEntity<Object>(response, HttpStatus.ACCEPTED);
+
+    }
+
+    @GetMapping(path = "/listeArmament/idarma/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<Object> listByIdAgenteID(@PathVariable("id") Long id) {
+
+        APIResponse response = armamentoService.listByIdAgentId(id);
         return new ResponseEntity<Object>(response, HttpStatus.ACCEPTED);
 
     }

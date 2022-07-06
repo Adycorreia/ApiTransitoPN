@@ -27,7 +27,7 @@ public class Armamento extends AbstractEntity{
     @ManyToOne
     @JoinColumn(name = "id_agente",  referencedColumnName = "id",  updatable=false)
     @JsonBackReference
-    private Agente id_agente;
+    private Agente agente;
 
     @Column(name = "creation", nullable = true, columnDefinition = "TIMESTAMP DEFAULT now()")
     @CreationTimestamp
