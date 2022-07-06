@@ -3,12 +3,9 @@ package cv.pn.apitransito.services.implement;
 
 
 import cv.pn.apitransito.dtos.ArmamentoResponseDTO;
-import cv.pn.apitransito.dtos.DocumentsResponseDTO;
-import cv.pn.apitransito.dtos.InfracaoResponseDTO;
+import cv.pn.apitransito.dtos.EfectivosResponseDTO;
 import cv.pn.apitransito.model.Agente;
 import cv.pn.apitransito.model.Armamento;
-import cv.pn.apitransito.model.Documents;
-import cv.pn.apitransito.model.Infracao;
 import cv.pn.apitransito.repository.ArmamentoRepository;
 import cv.pn.apitransito.repository.EfectivosRepository;
 import cv.pn.apitransito.services.ArmamentoService;
@@ -16,23 +13,24 @@ import cv.pn.apitransito.services.ArmamentoService;
 import cv.pn.apitransito.utilities.APIResponse;
 import cv.pn.apitransito.utilities.ApiUtilies;
 import cv.pn.apitransito.utilities.MessageState;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotEmpty;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
 @Service
 public  class ArmamentoServiceImpl implements ArmamentoService {
 
-    @Autowired
-    ArmamentoRepository armamentoRepository;
+
+    private final ArmamentoRepository armamentoRepository;
+
+    private final EfectivosRepository efectivosRepository;
+
+    public ArmamentoServiceImpl(ArmamentoRepository armamentoRepository, EfectivosRepository efectivosRepository) {
+        this.armamentoRepository = armamentoRepository;
+        this.efectivosRepository = efectivosRepository;
+    }
 
     @Override
     public APIResponse armamentoAll() {
@@ -51,7 +49,9 @@ public  class ArmamentoServiceImpl implements ArmamentoService {
                             arma.getN_municoes(),
                             arma.getEstado(),
                             arma.getFotografia(),
-                            arma.getId_agente(),
+                            arma.getAgente().getId(),
+                            arma.getAgente().getNome(),
+                            arma.getAgente().getApelido(),
                             arma.getCreation(),
                             arma.getUpdate(),
                             arma.getObs())).collect(Collectors.toList());
@@ -72,6 +72,10 @@ public  class ArmamentoServiceImpl implements ArmamentoService {
 
         Armamento armamento = new Armamento();
 
+        Optional<Agente> agenteOptional = efectivosRepository.findById(armamentoResponseDTO.getId_agente());
+        ApiUtilies.checkResource(agenteOptional, "Efetivo: " + MessageState.ID_NAO_EXISTE);
+        Agente agente = agenteOptional.get();
+
         try {
             armamento.setId(armamentoResponseDTO.getIdarma());
             armamento.setNumero(armamentoResponseDTO.getNumero());
@@ -82,7 +86,7 @@ public  class ArmamentoServiceImpl implements ArmamentoService {
             armamento.setN_municoes(armamentoResponseDTO.getN_municoes());
             armamento.setEstado(armamentoResponseDTO.getEstado());
             armamento.setFotografia(armamentoResponseDTO.getFotografia());
-            armamento.setId_agente(armamentoResponseDTO.getId_agente());
+            armamento.setAgente(agente);
             armamento.setCreation(armamentoResponseDTO.getCreation());
             armamento.setUpdate(armamentoResponseDTO.getUpdate());
             armamento.setObs(armamentoResponseDTO.getObs());
@@ -120,39 +124,94 @@ public  class ArmamentoServiceImpl implements ArmamentoService {
         Optional<Armamento> armamentoOptional = armamentoRepository.findById(id);
         ApiUtilies.checkResource(armamentoOptional, MessageState.ID_NAO_EXISTE);
         Armamento Armamento = armamentoOptional.get();
-
-
+/*
+        Optional<Agente> agenteOptional = efectivosRepository.findById(Armamento.getId());
+        ApiUtilies.checkResource(agenteOptional, "Efetivo: " + MessageState.ID_NAO_EXISTE);
+        Agente agente = agenteOptional.get();
+*/
         try {
-            List<ArmamentoResponseDTO> armamentoResponseDTOS = armamentoOptional.stream()
-                    .map(arma -> new ArmamentoResponseDTO(
-                            arma.getId(),
-                            arma.getNumero(),
-                            arma.getMarca(),
-                            arma.getModelo(),
-                            arma.getCalibre(),
-                            arma.getN_carregador(),
-                            arma.getN_municoes(),
-                            arma.getEstado(),
-                            arma.getFotografia(),
-                            arma.getId_agente(),
-                            arma.getCreation(),
-                            arma.getUpdate(),
-                            arma.getObs())).collect(Collectors.toList());
+            List<ArmamentoResponseDTO> armamentoResponseDTO = armamentoOptional.stream()
+                    .map(armamento -> new ArmamentoResponseDTO(
 
-            return APIResponse.builder().status(true).details(Arrays.asList(armamentoResponseDTOS.toArray())).statusText(MessageState.SUCESSO).build();
+                            armamento.getId(),
+                            armamento.getNumero(),
+                            armamento.getMarca(),
+                            armamento.getModelo(),
+                            armamento.getCalibre(),
+                            armamento.getN_carregador(),
+                            armamento.getN_municoes(),
+                            armamento.getEstado(),
+                            armamento.getFotografia(),
+                            armamento.getAgente().getId(),
+                            armamento.getAgente().getNome(),
+                            armamento.getAgente().getApelido(),
+                           // agente.getId(),
+                            armamento.getCreation(),
+                            armamento.getUpdate(),
+                            armamento.getObs()) )
+                    .collect(Collectors.toList());
 
-        } catch (Exception e) {
+            return APIResponse.builder().status(true).details(Arrays.asList(armamentoResponseDTO.toArray())).statusText(MessageState.SUCESSO).build();
+
+        }catch (Exception e) {
             List<Object> l = new ArrayList<>();
             l.add(e.getMessage());
-            return APIResponse.builder().status(false).statusText(MessageState.ERRO).details(l).build();
+            return APIResponse.builder().status(false).statusText(MessageState.ERRO_AO_REMOVER).details(l).build();
         }
     }
+
+
+    @Override
+    public APIResponse listByIdAgentId(Long id) {
+        Optional<Armamento> armamentoOptional = armamentoRepository.findByAgente_Id(id);
+        ApiUtilies.checkResource(armamentoOptional, MessageState.ID_NAO_EXISTE);
+        Armamento Armamento = armamentoOptional.get();
+/*
+        Optional<Agente> agenteOptional = efectivosRepository.findById(Armamento.getId());
+        ApiUtilies.checkResource(agenteOptional, "Efetivo: " + MessageState.ID_NAO_EXISTE);
+        Agente agente = agenteOptional.get();
+*/
+        try {
+            List<ArmamentoResponseDTO> armamentoResponseDTO = armamentoOptional.stream()
+                    .map(armamento -> new ArmamentoResponseDTO(
+
+                            armamento.getId(),
+                            armamento.getNumero(),
+                            armamento.getMarca(),
+                            armamento.getModelo(),
+                            armamento.getCalibre(),
+                            armamento.getN_carregador(),
+                            armamento.getN_municoes(),
+                            armamento.getEstado(),
+                            armamento.getFotografia(),
+                            armamento.getAgente().getId(),
+                            armamento.getAgente().getNome(),
+                            armamento.getAgente().getApelido(),
+                            // agente.getId(),
+                            armamento.getCreation(),
+                            armamento.getUpdate(),
+                            armamento.getObs()) )
+                    .collect(Collectors.toList());
+
+            return APIResponse.builder().status(true).details(Arrays.asList(armamentoResponseDTO.toArray())).statusText(MessageState.SUCESSO).build();
+
+        }catch (Exception e) {
+            List<Object> l = new ArrayList<>();
+            l.add(e.getMessage());
+            return APIResponse.builder().status(false).statusText(MessageState.ERRO_AO_REMOVER).details(l).build();
+        }
+    }
+
 
     @Override
     public APIResponse updateArmaId(Long id, ArmamentoResponseDTO dto) {
         Optional<Armamento> armamentoOptional = armamentoRepository.findById(id);
         ApiUtilies.checkResource(armamentoOptional, MessageState.ID_NAO_EXISTE);
         Armamento armamento = armamentoOptional.get();
+
+        Optional<Agente> agenteOptional = efectivosRepository.findById(armamento.getId());
+        ApiUtilies.checkResource(agenteOptional, "Efetivo: " + MessageState.ID_NAO_EXISTE);
+
 
         try {
             armamento.setId(dto.getIdarma());
@@ -164,7 +223,7 @@ public  class ArmamentoServiceImpl implements ArmamentoService {
             armamento.setN_municoes(dto.getN_municoes());
             armamento.setEstado(dto.getEstado());
             armamento.setFotografia(dto.getFotografia());
-            armamento.setId_agente(dto.getId_agente());
+            armamento.setAgente(agenteOptional.get());
             armamento.setCreation(dto.getCreation());
             armamento.setUpdate(dto.getUpdate());
             armamento.setObs(dto.getObs());

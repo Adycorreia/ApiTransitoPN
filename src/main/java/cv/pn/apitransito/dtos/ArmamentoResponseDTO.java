@@ -22,7 +22,9 @@ public class ArmamentoResponseDTO {
     private String estado;
     private String fotografia;
 
-    private Agente id_agente;
+    private Long id_agente;
+    private String nome_efectivo;
+    private String apelido_efectivo;
 
     private LocalDateTime creation;
 

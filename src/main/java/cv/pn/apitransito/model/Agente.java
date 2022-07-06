@@ -57,35 +57,41 @@ public class Agente extends AbstractEntity{
     @Enumerated(value = EnumType.STRING )
     private Constants.EstadoCivil estado_civil;
 
-    @Column(name = "ilha_id", nullable = true, columnDefinition = "character varying(40)")
     private String ilha_id;
 
-    @Column(name = "concelho_id", nullable = true, columnDefinition = "character varying(40)")
     private String concelho_id;
 
-    @Column(name = "freguesia_id", nullable = true, columnDefinition = "character varying(40)")
     private String freguesia_id;
 
-    @Column(name = "localidade_id", nullable = true, columnDefinition = "character varying(40)")
     private String localidade_id;
 
-    @Column(name = "zona_id", nullable = true, columnDefinition = "character varying(40)")
     private String zona_id;
 
-    @Column(name = "nacionalidade_id", nullable = true, columnDefinition = "character varying(40)")
     private String nacionalidade_id;
 
-    @Column(name = "cv_nacionalidade", nullable = true, columnDefinition = "boolean")
     private Boolean cv_nacionalidade;
 
-    @Column(name = "nivel_instrucao", nullable = true, columnDefinition = "character varying(100)")
     private String nivel_instrucao;
 
-    @Column(name = "local_nascimento", nullable = true, columnDefinition = "character varying(200)")
     private String local_nascimento;
 
-    @Column(name = "naturalidade", nullable = true, columnDefinition = "character varying(40)")
     private String naturalidade;
+
+    private Number n_arma;
+
+    private String marca;
+
+    private String modelo;
+
+    private String calibre;
+
+    private Number n_carregador;
+
+    private Number n_municoes;
+
+    private String estado_arma;
+
+    private LocalDate data_inspeArma;
 
 
 
