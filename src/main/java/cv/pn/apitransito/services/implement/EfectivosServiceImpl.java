@@ -282,6 +282,22 @@ public  class EfectivosServiceImpl implements EfectivosService {
 
             agente.setNaturalidade(efectivosResponseDTO.getNaturalidade());
 
+            agente.setN_arma(efectivosResponseDTO.getN_arma());
+
+            agente.setMarca(efectivosResponseDTO.getMarca());
+
+            agente.setModelo(efectivosResponseDTO.getModelo());
+
+            agente.setCalibre(efectivosResponseDTO.getCalibre());
+
+            agente.setN_carregador(efectivosResponseDTO.getN_carregador());
+
+            agente.setN_municoes(efectivosResponseDTO.getN_municoes());
+
+            agente.setEstado_arma(efectivosResponseDTO.getEstado_arma());
+
+            agente.setData_inspeArma(efectivosResponseDTO.getData_inspeArma());
+
 
             efectivosRepository.save(agente);
 
@@ -373,6 +389,21 @@ public  class EfectivosServiceImpl implements EfectivosService {
 
             agent.setData_inspeArma(dto.getData_inspeArma());
 
+            agent.setN_arma(dto.getN_arma());
+
+            agent.setMarca(dto.getMarca());
+
+            agent.setModelo(dto.getModelo());
+
+            agent.setCalibre(dto.getCalibre());
+
+            agent.setN_carregador(dto.getN_carregador());
+
+            agent.setN_municoes(dto.getN_municoes());
+
+            agent.setEstado_arma(dto.getEstado_arma());
+
+            agent.setData_inspeArma(dto.getData_inspeArma());
 
             efectivosRepository.save(agent);
 
