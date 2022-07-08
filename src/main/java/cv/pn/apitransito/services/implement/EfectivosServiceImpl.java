@@ -418,6 +418,37 @@ public  class EfectivosServiceImpl implements EfectivosService {
 
         }
     }
+
+    @Override
+    public APIResponse updateDocIdArma(Long id, EfectivosResponseDTO dto) {
+
+        Optional<Agente> efectOptional = efectivosRepository.findById(id);
+        ApiUtilies.checkResource(efectOptional, MessageState.ID_NAO_EXISTE);
+        Agente agent = efectOptional.get();
+
+        try {
+
+            agent.setN_carregador(dto.getN_carregador());
+
+            agent.setN_municoes(dto.getN_municoes());
+
+            agent.setEstado_arma(dto.getEstado_arma());
+
+            agent.setData_inspeArma(dto.getData_inspeArma());
+
+            efectivosRepository.save(agent);
+
+            return APIResponse.builder().status(true).statusText(MessageState.ATUALIZADO_COM_SUCESSO).build();
+
+        } catch (Exception e) {
+
+            List<Object> l = new ArrayList<>();
+            l.add(e.getMessage());
+
+            return APIResponse.builder().status(false).statusText(MessageState.ERRO_AO_ATUALIZAR).details(l).build();
+
+        }
+    }
 /*
     @Override
     public APIResponse findTipodoc(String tipodoc) {

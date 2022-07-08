@@ -64,7 +64,7 @@ public class FeriasServiceImpl implements FeriasService {
     }
 
     @Override
-    public APIResponse insertEfectivos(FeriasResponseDTO feriasResponseDTO) {
+    public APIResponse insertFerias(FeriasResponseDTO feriasResponseDTO) {
         Ferias ferias = new Ferias();
 
         Optional<Agente> agenteOptional = efectivosRepository.findById(feriasResponseDTO.getId_agente());
@@ -99,7 +99,7 @@ public class FeriasServiceImpl implements FeriasService {
     }
 
     @Override
-    public APIResponse deleteefect(Long id) {
+    public APIResponse deleteFeria(Long id) {
         Optional<Ferias> feriasOptional = feriasRepository.findById(id);
         ApiUtilies.checkResource(feriasOptional, MessageState.ID_NAO_EXISTE);
         Ferias ferias = feriasOptional.get();
@@ -150,7 +150,7 @@ public class FeriasServiceImpl implements FeriasService {
     }
 
     @Override
-    public APIResponse updateEfectId(Long id, FeriasResponseDTO feriasResponseDTO) {
+    public APIResponse updateFeriatId(Long id, FeriasResponseDTO feriasResponseDTO) {
         Optional<Ferias> feriasOptional = feriasRepository.findById(id);
         ApiUtilies.checkResource(feriasOptional, MessageState.ID_NAO_EXISTE);
         Ferias ferias = feriasOptional.get();

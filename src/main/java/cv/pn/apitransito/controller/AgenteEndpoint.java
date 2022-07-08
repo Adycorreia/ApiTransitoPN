@@ -61,5 +61,12 @@ public class AgenteEndpoint {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PutMapping(path = "/listefect/arma/{id}")
+    public  ResponseEntity<Object> updateDocIdArma(@PathVariable("id") Long id, @Valid @RequestBody EfectivosResponseDTO dto)  {
+
+        APIResponse response = efectivosService.updateEfectId(id, dto);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 
 }

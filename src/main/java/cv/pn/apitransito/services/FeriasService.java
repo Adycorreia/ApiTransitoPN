@@ -6,8 +6,8 @@ import cv.pn.apitransito.utilities.APIResponse;
 public interface FeriasService {
 
     APIResponse feriasAll();
-    APIResponse insertEfectivos(FeriasResponseDTO feriasResponseDTO);
-    APIResponse deleteefect(Long id);
+    APIResponse insertFerias(FeriasResponseDTO feriasResponseDTO);
+    APIResponse deleteFeria(Long id);
     APIResponse listById(Long Id);
-    APIResponse updateEfectId(Long id, FeriasResponseDTO dto);
+    APIResponse updateFeriatId(Long id, FeriasResponseDTO dto);
 }
