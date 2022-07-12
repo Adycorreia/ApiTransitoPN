@@ -64,7 +64,7 @@ public class FeriasServiceImpl implements FeriasService {
     }
 
     @Override
-    public APIResponse insertEfectivos(FeriasResponseDTO feriasResponseDTO) {
+    public APIResponse insertFerias(FeriasResponseDTO feriasResponseDTO) {
         Ferias ferias = new Ferias();
 
         Optional<Agente> agenteOptional = efectivosRepository.findById(feriasResponseDTO.getId_agente());
@@ -99,7 +99,7 @@ public class FeriasServiceImpl implements FeriasService {
     }
 
     @Override
-    public APIResponse deleteefect(Long id) {
+    public APIResponse deleteFeria(Long id) {
         Optional<Ferias> feriasOptional = feriasRepository.findById(id);
         ApiUtilies.checkResource(feriasOptional, MessageState.ID_NAO_EXISTE);
         Ferias ferias = feriasOptional.get();
@@ -116,8 +116,8 @@ public class FeriasServiceImpl implements FeriasService {
     }
 
     @Override
-    public APIResponse listById(Long Id) {
-        Optional<Ferias> feriasOptional = feriasRepository.findById(Id);
+    public APIResponse listById(Long id) {
+        Optional<Ferias> feriasOptional = feriasRepository.findById(id);
         ApiUtilies.checkResource(feriasOptional, MessageState.ID_NAO_EXISTE);
         Ferias ferias1 = feriasOptional.get();
         try {
@@ -149,13 +149,49 @@ public class FeriasServiceImpl implements FeriasService {
         }
     }
 
+
+
     @Override
-    public APIResponse updateEfectId(Long id, FeriasResponseDTO feriasResponseDTO) {
+    public APIResponse listByIdEfectivo(Long id, FeriasResponseDTO feriasResponseDTO ) {
+        List<Ferias> feriasOptional = feriasRepository.findByAgente_Id(id);
+        //Ferias ferias1 = feriasOptional.get();
+        try {
+            List<FeriasResponseDTO> feriasResponseDTOS = feriasOptional.stream()
+                    .map(feria -> new FeriasResponseDTO(
+                            feria.getId(),
+                            feria.getData_inicio(),
+                            feria.getData_fim(),
+                            feria.getLocal_feria(),
+                            feria.getEntrega_arma(),
+                            feria.getN_oficio(),
+                            feria.getDespacho(),
+                            feria.getEstado(),
+                            feria.getPass_numero(),
+                            feria.getUser_despacho(),
+                            feria.getAgente().getId(),
+                            feria.getAgente().getNome(),
+                            feria.getAgente().getApelido(),
+                            feria.getCreation(),
+                            feria.getUpdate(),
+                            feria.getObs())).collect(Collectors.toList());
+
+            return APIResponse.builder().status(true).details(Arrays.asList(feriasResponseDTOS.toArray())).statusText(MessageState.SUCESSO).build();
+
+        }catch (Exception e) {
+            List<Object> l = new ArrayList<>();
+            l.add(e.getMessage());
+            return APIResponse.builder().status(false).statusText(MessageState.ERRO_AO_REMOVER).details(l).build();
+        }
+    }
+
+
+    @Override
+    public APIResponse updateFeriatId(Long id, FeriasResponseDTO feriasResponseDTO) {
         Optional<Ferias> feriasOptional = feriasRepository.findById(id);
         ApiUtilies.checkResource(feriasOptional, MessageState.ID_NAO_EXISTE);
         Ferias ferias = feriasOptional.get();
 
-        Optional<Agente> agenteOptional = efectivosRepository.findById(ferias.getId());
+        Optional<Agente> agenteOptional = efectivosRepository.findById(ferias.getAgente().getId());
         ApiUtilies.checkResource(agenteOptional, "Efetivo: " + MessageState.ID_NAO_EXISTE);
 
 

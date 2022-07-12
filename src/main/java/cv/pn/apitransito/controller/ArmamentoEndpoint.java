@@ -1,12 +1,8 @@
 package cv.pn.apitransito.controller;
 
 import cv.pn.apitransito.dtos.ArmamentoResponseDTO;
-import cv.pn.apitransito.dtos.EfectivosResponseDTO;
-import cv.pn.apitransito.dtos.InfracaoResponseDTO;
-import cv.pn.apitransito.model.Agente;
+
 import cv.pn.apitransito.services.ArmamentoService;
-import cv.pn.apitransito.services.EfectivosService;
-import cv.pn.apitransito.services.InfracaoService;
 import cv.pn.apitransito.utilities.APIResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,5 +1,6 @@
 package cv.pn.apitransito.controller;
 
+import cv.pn.apitransito.dtos.ArmaEdResponseDTO;
 import cv.pn.apitransito.dtos.DocumentsResponseDTO;
 import cv.pn.apitransito.dtos.EfectivosResponseDTO;
 import cv.pn.apitransito.services.DocumentsService;
@@ -58,6 +59,13 @@ public class AgenteEndpoint {
     public  ResponseEntity<Object> updateDocId(@PathVariable("id") Long id, @Valid @RequestBody EfectivosResponseDTO dto)  {
 
         APIResponse response = efectivosService.updateEfectId(id, dto);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping(path = "/listefect/arma/{id}")
+    public  ResponseEntity<Object> updateDocIdArma(@PathVariable("id") Long id, @Valid @RequestBody ArmaEdResponseDTO dto)  {
+
+        APIResponse response = efectivosService.updateEfectIdArma(id, dto);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
