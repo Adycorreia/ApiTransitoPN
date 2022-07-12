@@ -1,5 +1,6 @@
 package cv.pn.apitransito.services.implement;
 
+import cv.pn.apitransito.dtos.ArmaEdResponseDTO;
 import cv.pn.apitransito.dtos.EfectivosResponseDTO;
 import cv.pn.apitransito.model.Agente;
 import cv.pn.apitransito.repository.EfectivosRepository;
@@ -420,7 +421,7 @@ public  class EfectivosServiceImpl implements EfectivosService {
     }
 
     @Override
-    public APIResponse updateDocIdArma(Long id, EfectivosResponseDTO dto) {
+    public APIResponse updateEfectIdArma(Long id, ArmaEdResponseDTO dto) {
 
         Optional<Agente> efectOptional = efectivosRepository.findById(id);
         ApiUtilies.checkResource(efectOptional, MessageState.ID_NAO_EXISTE);

@@ -38,6 +38,15 @@ public class FeriasEndpoint {
 
     }
 
+    @GetMapping(path = "/listeFerias/idferia/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<Object> listByIdFeriaEfectivo(@PathVariable("id") Long id, FeriasResponseDTO feriasResponseDTO) {
+
+        APIResponse response = feriasService.listByIdEfectivo(id, feriasResponseDTO);
+        return new ResponseEntity<Object>(response, HttpStatus.ACCEPTED);
+
+    }
+
     @PostMapping(path = "/listeFerias")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Object> insertFeria(@Valid @RequestBody FeriasResponseDTO feriasResponseDTO) {
@@ -61,6 +70,7 @@ public class FeriasEndpoint {
         APIResponse response = feriasService.updateFeriatId(id, dto);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
 
 
 }

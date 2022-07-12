@@ -8,6 +8,7 @@ public interface FeriasService {
     APIResponse feriasAll();
     APIResponse insertFerias(FeriasResponseDTO feriasResponseDTO);
     APIResponse deleteFeria(Long id);
-    APIResponse listById(Long Id);
+    APIResponse listById(Long id);
+    APIResponse listByIdEfectivo(Long id, FeriasResponseDTO feriasResponseDTO);
     APIResponse updateFeriatId(Long id, FeriasResponseDTO dto);
 }
