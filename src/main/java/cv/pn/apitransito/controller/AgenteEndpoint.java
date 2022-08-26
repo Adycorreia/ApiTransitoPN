@@ -15,21 +15,21 @@ import javax.validation.Valid;
 
 @CrossOrigin
 @RestController
-@RequestMapping("api/")
+@RequestMapping("api/effective")
 public class AgenteEndpoint {
 
 
     @Autowired
     EfectivosService efectivosService;
 
-    @GetMapping(path = "/listefect")
+    @GetMapping(path = "/list")
     public ResponseEntity<Object> ListEfectivos(){
 
         APIResponse response = efectivosService.efectivosAll();
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/listefect/id/{id}")
+    @GetMapping(path = "/listById/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Object> listById(@PathVariable("id") Long id) {
 
@@ -38,7 +38,7 @@ public class AgenteEndpoint {
 
     }
 
-    @PostMapping(path = "/listefect")
+    @PostMapping(path = "/save")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Object> insertEfectivos(@Valid @RequestBody EfectivosResponseDTO efectivosResponseDTO) {
 
@@ -46,23 +46,23 @@ public class AgenteEndpoint {
         return new ResponseEntity<Object>(response, HttpStatus.CREATED);
     }
 
-    @DeleteMapping(path = "/listefect/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Object> deleteDoc(@PathVariable("id") Long id) {
 
-        APIResponse response = efectivosService.deleteefect(id);
+        APIResponse response = efectivosService.deletefect(id);
         return new ResponseEntity<Object>(response, HttpStatus.ACCEPTED);
 
     }
 
-    @PutMapping(path = "/listefect/{id}")
+    @PutMapping(path = "/update/{id}")
     public  ResponseEntity<Object> updateDocId(@PathVariable("id") Long id, @Valid @RequestBody EfectivosResponseDTO dto)  {
 
         APIResponse response = efectivosService.updateEfectId(id, dto);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PutMapping(path = "/listefect/arma/{id}")
+    @PutMapping(path = "/insertInspeArma/{id}")
     public  ResponseEntity<Object> updateDocIdArma(@PathVariable("id") Long id, @Valid @RequestBody ArmaEdResponseDTO dto)  {
 
         APIResponse response = efectivosService.updateEfectIdArma(id, dto);

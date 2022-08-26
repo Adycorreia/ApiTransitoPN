@@ -9,6 +9,6 @@ public interface FeriasService {
     APIResponse insertFerias(FeriasResponseDTO feriasResponseDTO);
     APIResponse deleteFeria(Long id);
     APIResponse listById(Long id);
-    APIResponse listByIdEfectivo(Long id, FeriasResponseDTO feriasResponseDTO);
+    APIResponse listByIdEfectivo(Long id);
     APIResponse updateFeriatId(Long id, FeriasResponseDTO dto);
 }

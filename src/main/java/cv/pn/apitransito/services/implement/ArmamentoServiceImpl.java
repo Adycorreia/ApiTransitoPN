@@ -13,8 +13,11 @@ import cv.pn.apitransito.services.ArmamentoService;
 import cv.pn.apitransito.utilities.APIResponse;
 import cv.pn.apitransito.utilities.ApiUtilies;
 import cv.pn.apitransito.utilities.MessageState;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.beans.Beans;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -75,6 +78,7 @@ public  class ArmamentoServiceImpl implements ArmamentoService {
         Agente agente = agenteOptional.get();
 
         try {
+            /* 
             armamento.setId(armamentoResponseDTO.getIdarma());
             armamento.setNumero(armamentoResponseDTO.getNumero());
             armamento.setMarca(armamentoResponseDTO.getMarca());
@@ -87,8 +91,10 @@ public  class ArmamentoServiceImpl implements ArmamentoService {
             armamento.setAgente(agente);
             armamento.setCreation(armamentoResponseDTO.getCreation());
             armamento.setUpdate(armamentoResponseDTO.getUpdate());
-            armamento.setObs(armamentoResponseDTO.getObs());
+            armamento.setObs(armamentoResponseDTO.getObs());*/
 
+            BeanUtils.copyProperties(armamentoResponseDTO, armamento);
+        
             armamentoRepository.save(armamento);
 
             return APIResponse.builder().status(true).statusText(MessageState.INSERIDO_COM_SUCESSO).build();
@@ -206,12 +212,18 @@ public  class ArmamentoServiceImpl implements ArmamentoService {
         Optional<Armamento> armamentoOptional = armamentoRepository.findById(id);
         ApiUtilies.checkResource(armamentoOptional, MessageState.ID_NAO_EXISTE);
         Armamento armamento = armamentoOptional.get();
-
+//
         Optional<Agente> agenteOptional = efectivosRepository.findById(armamento.getId());
         ApiUtilies.checkResource(agenteOptional, "Efetivo: " + MessageState.ID_NAO_EXISTE);
-
+         armamento = new Armamento();
+        //
 
         try {
+
+            BeanUtils.copyProperties(dto, armamento);
+            armamento.setId(armamentoOptional.get().getId());
+
+            /* 
             armamento.setId(dto.getIdarma());
             armamento.setNumero(dto.getNumero());
             armamento.setMarca(dto.getMarca());
@@ -225,7 +237,7 @@ public  class ArmamentoServiceImpl implements ArmamentoService {
             armamento.setCreation(dto.getCreation());
             armamento.setUpdate(dto.getUpdate());
             armamento.setObs(dto.getObs());
-
+          */
 
             armamentoRepository.save(armamento);
 

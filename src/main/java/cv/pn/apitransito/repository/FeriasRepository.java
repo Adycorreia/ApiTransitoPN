@@ -1,5 +1,6 @@
 package cv.pn.apitransito.repository;
 
+import cv.pn.apitransito.dtos.FeriasResponseDTO;
 import cv.pn.apitransito.model.Ferias;
 import org.springframework.data.jpa.repository.JpaRepository;
 
