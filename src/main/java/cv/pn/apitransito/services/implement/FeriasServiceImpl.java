@@ -152,9 +152,10 @@ public class FeriasServiceImpl implements FeriasService {
 
 
     @Override
-    public APIResponse listByIdEfectivo(Long id, FeriasResponseDTO feriasResponseDTO ) {
+    public APIResponse listByIdEfectivo(Long id ) {
         List<Ferias> feriasOptional = feriasRepository.findByAgente_Id(id);
-        //Ferias ferias1 = feriasOptional.get();
+        //Ferias ferias1 = feriasOptional.g;
+        
         try {
             List<FeriasResponseDTO> feriasResponseDTOS = feriasOptional.stream()
                     .map(feria -> new FeriasResponseDTO(

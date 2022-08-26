@@ -8,6 +8,8 @@ import cv.pn.apitransito.services.EfectivosService;
 import cv.pn.apitransito.utilities.APIResponse;
 import cv.pn.apitransito.utilities.ApiUtilies;
 import cv.pn.apitransito.utilities.MessageState;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -223,6 +225,11 @@ public  class EfectivosServiceImpl implements EfectivosService {
         int idade = ano2 - ano1;
 
         try {
+
+
+            BeanUtils.copyProperties(efectivosResponseDTO, agente);
+            agente.setIdade(idade);
+/* *
             agente.setId(efectivosResponseDTO.getIdagente());
 
             agente.setId_pn(efectivosResponseDTO.getId_pn());
@@ -298,7 +305,7 @@ public  class EfectivosServiceImpl implements EfectivosService {
             agente.setEstado_arma(efectivosResponseDTO.getEstado_arma());
 
             agente.setData_inspeArma(efectivosResponseDTO.getData_inspeArma());
-
+*/
 
             efectivosRepository.save(agente);
 
@@ -313,7 +320,7 @@ public  class EfectivosServiceImpl implements EfectivosService {
     }
 
     @Override
-    public APIResponse deleteefect(Long id) {
+    public APIResponse deletefect(Long id) {
 
         Optional<Agente> efectivosOptional = efectivosRepository.findById(id);
         ApiUtilies.checkResource(efectivosOptional, MessageState.ID_NAO_EXISTE);
@@ -338,9 +345,10 @@ public  class EfectivosServiceImpl implements EfectivosService {
         Agente agent = efectOptional.get();
 
         try {
-            agent.setId_pn(dto.getId_pn());
+           // agent.setId_pn(dto.getId_pn());
 
-            agent.setNome(dto.getNome());
+             BeanUtils.copyProperties(dto, agent);
+       /*      agent.setNome(dto.getNome());
 
             agent.setApelido(dto.getApelido());
 
@@ -405,7 +413,7 @@ public  class EfectivosServiceImpl implements EfectivosService {
             agent.setEstado_arma(dto.getEstado_arma());
 
             agent.setData_inspeArma(dto.getData_inspeArma());
-
+*/
             efectivosRepository.save(agent);
 
             return APIResponse.builder().status(true).statusText(MessageState.ATUALIZADO_COM_SUCESSO).build();
@@ -427,8 +435,13 @@ public  class EfectivosServiceImpl implements EfectivosService {
         ApiUtilies.checkResource(efectOptional, MessageState.ID_NAO_EXISTE);
         Agente agent = efectOptional.get();
 
+        //var agente = new Agente();
+
         try {
 
+           BeanUtils.copyProperties(dto, agent);
+          // agente.setId(efectOptional.get().getId());
+/* 
             agent.setN_carregador(dto.getN_carregador());
 
             agent.setN_municoes(dto.getN_municoes());
@@ -436,7 +449,7 @@ public  class EfectivosServiceImpl implements EfectivosService {
             agent.setEstado_arma(dto.getEstado_arma());
 
             agent.setData_inspeArma(dto.getData_inspeArma());
-
+*/
             efectivosRepository.save(agent);
 
             return APIResponse.builder().status(true).statusText(MessageState.ATUALIZADO_COM_SUCESSO).build();

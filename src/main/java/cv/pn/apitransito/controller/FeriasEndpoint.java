@@ -15,13 +15,13 @@ import javax.validation.Valid;
 
 @CrossOrigin
 @RestController
-@RequestMapping("api/")
+@RequestMapping("api/ferias")
 public class FeriasEndpoint {
 
     @Autowired
     FeriasService feriasService;
 
-    @GetMapping(path = "/listeFerias")
+    @GetMapping(path = "/list")
     public ResponseEntity<Object> ListFerias(){
 
         APIResponse response = feriasService.feriasAll();
@@ -29,7 +29,7 @@ public class FeriasEndpoint {
     }
 
 
-    @GetMapping(path = "/listeFerias/id/{id}")
+    @GetMapping(path = "/listById/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Object> listByIdFeriaID(@PathVariable("id") Long id) {
 
@@ -38,16 +38,16 @@ public class FeriasEndpoint {
 
     }
 
-    @GetMapping(path = "/listeFerias/idferia/{id}")
+    @GetMapping(path = "/listByIdAgente/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<Object> listByIdFeriaEfectivo(@PathVariable("id") Long id, FeriasResponseDTO feriasResponseDTO) {
+    public ResponseEntity<Object> listByIdFeriaEfectivo(@PathVariable("id") Long id) {
 
-        APIResponse response = feriasService.listByIdEfectivo(id, feriasResponseDTO);
+        APIResponse response = feriasService.listByIdEfectivo(id);
         return new ResponseEntity<Object>(response, HttpStatus.ACCEPTED);
 
     }
 
-    @PostMapping(path = "/listeFerias")
+    @PostMapping(path = "/save")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Object> insertFeria(@Valid @RequestBody FeriasResponseDTO feriasResponseDTO) {
 
@@ -55,7 +55,7 @@ public class FeriasEndpoint {
         return new ResponseEntity<Object>(response, HttpStatus.CREATED);
     }
 
-    @DeleteMapping(path = "/listeFerias/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Object> deleteFeria(@PathVariable("id") Long id) {
 
@@ -64,7 +64,7 @@ public class FeriasEndpoint {
 
     }
 
-    @PutMapping(path = "/listeFerias/{id}")
+    @PutMapping(path = "/update/{id}")
     public  ResponseEntity<Object> updateFeria(@PathVariable("id") Long id, @Valid @RequestBody FeriasResponseDTO dto)  {
 
         APIResponse response = feriasService.updateFeriatId(id, dto);
